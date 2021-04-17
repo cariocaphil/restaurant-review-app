@@ -12,7 +12,7 @@ const center = {
   lng: -38.523
 };
 
-function MapComponent() {
+function MapComponent({ data }) {
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: API_KEY
@@ -60,6 +60,12 @@ function MapComponent() {
     >
       { /* Child components, such as markers, info windows, etc. */}
       <Marker position={location} />
+      { data.map(restaurant =>
+        <Marker position={{
+          lat: restaurant.lat,
+          lng: restaurant.long
+        }}
+        />)}
     </GoogleMap>
   ) : <>loading</>
 }
