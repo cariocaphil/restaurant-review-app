@@ -1,7 +1,7 @@
-import React from 'react';
-import RestaurantList from './components/restaurant-list';
-import Map from './components/map';
-import { data } from './data/restaurants';
+import React from "react";
+import RestaurantList from "./components/restaurant-list";
+import Map from "./components/map";
+import { data } from "./data/restaurants";
 
 function App() {
   return (
