@@ -8,6 +8,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write .",
+    "format:verify": "prettier --list-different '**/*.{md,json,js,jsx,css}'",
     "lint": "eslint ."
   },
   "husky": {
