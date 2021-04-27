@@ -3,6 +3,9 @@ import RestaurantItem from "./restaurant-item";
 import { useTranslation } from "react-i18next";
 import { getAverageRating } from "../utils/helper-functions";
 
+import { Select } from "antd";
+const { Option } = Select;
+
 function RestaurantList({
   data,
   minRating,
@@ -22,27 +25,27 @@ function RestaurantList({
       <form>
         <label>
           {t("restaurantList.selectLabelMin")}
-          <select value={minRating} onChange={handleMinRating}>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
+          <Select value={minRating} onChange={handleMinRating}>
+            <Option value="0">0</Option>
+            <Option value="1">1</Option>
+            <Option value="2">2</Option>
+            <Option value="3">3</Option>
+            <Option value="4">4</Option>
+            <Option value="5">5</Option>
+          </Select>
         </label>
 
         <div>
           <label>
             {t("restaurantList.selectLabelMax")}
-            <select value={maxRating} onChange={handleMaxRating}>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+            <Select value={maxRating} onChange={handleMaxRating}>
+              <Option value="0">0</Option>
+              <Option value="1">1</Option>
+              <Option value="2">2</Option>
+              <Option value="3">3</Option>
+              <Option value="4">4</Option>
+              <Option value="5">5</Option>
+            </Select>
           </label>
         </div>
       </form>

@@ -11,8 +11,8 @@ import ReactStreetview from "react-streetview";
 import { useTranslation } from "react-i18next";
 
 const containerStyle = {
-  width: "400px",
-  height: "400px",
+  width: "100%",
+  height: "100%",
 };
 
 const center = {

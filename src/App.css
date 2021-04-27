@@ -1,0 +1,29 @@
+.flex-container {
+  display: flex;
+}
+
+.restaurant-section {
+  width: 30%;
+  height: 100vh;
+}
+
+.map-section {
+  width: 70%;
+  height: 100vh;
+}
+
+@media (max-width: 767px) {
+  .flex-container {
+    flex-direction: column-reverse;
+  }
+  .restaurant-section {
+    height: 40vh;
+  }
+  .map-section {
+    height: 60vh;
+  }
+  .restaurant-section,
+  .map-section {
+    width: auto;
+  }
+}
