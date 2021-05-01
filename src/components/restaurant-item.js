@@ -1,4 +1,8 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+
+import { Button, Card, List, Typography } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
 
 function RestaurantItem({
   selected,
@@ -9,29 +13,39 @@ function RestaurantItem({
   isInCurrentMapRange,
   averageRating,
 }) {
+  const { t } = useTranslation();
+
   return (
     <>
       {isInCurrentMapRange ? (
-        <li key={index}>
-          <h2 onClick={() => handleDetailsView(index)}>
-            {restaurant.restaurantName}
-          </h2>
-          <h3>average rating: {averageRating}</h3>
+        <Card key={restaurant.id} onClick={() => handleDetailsView(index)}>
+          {selected ? (
+            <Button
+              type="secondary"
+              icon={<CloseOutlined />}
+              onClick={() => handleClose()}
+              style={{ float: "right" }}
+            />
+          ) : null}
+          <h2>{restaurant.restaurantName}</h2>
+          <h3>{restaurant.address}</h3>
+          <h3>
+            {t("restaurantItem.ratingLabel")}: {averageRating}
+          </h3>
           {selected ? (
             <>
-              <button onClick={() => handleClose()}>Close</button>
-              <ul>
-                {restaurant.ratings.map((item) => {
-                  return (
-                    <li>
-                      {item.stars}, {item.comment}
-                    </li>
-                  );
-                })}
-              </ul>
+              <List
+                dataSource={restaurant.ratings}
+                renderItem={(item) => (
+                  <List.Item>
+                    {item.stars}{" "}
+                    <Typography.Text mark>{item.comment}</Typography.Text>
+                  </List.Item>
+                )}
+              />
             </>
           ) : null}
-        </li>
+        </Card>
       ) : null}
     </>
   );

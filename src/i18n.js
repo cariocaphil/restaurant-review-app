@@ -9,6 +9,7 @@ const resources = {
       "restaurantList.headline": "Restaurants in this area",
       "restaurantList.selectLabelMin": "Rating from",
       "restaurantList.selectLabelMax": "to",
+      "restaurantItem.ratingLabel": "average rating",
     },
   },
   fr: {
