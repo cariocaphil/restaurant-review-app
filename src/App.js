@@ -12,13 +12,11 @@ function App() {
   const [selected, setSelected] = useState(null);
 
   // handlers for rating form filter
-  const handleMinRating = (e) => {
-    const value = e.target.value;
+  const handleMinRating = (value) => {
     setMinRating(value);
   };
 
-  const handleMaxRating = (e) => {
-    const value = e.target.value;
+  const handleMaxRating = (value) => {
     setMaxRating(value);
   };
 
@@ -28,6 +26,7 @@ function App() {
   };
 
   const handleClose = () => {
+    debugger;
     setSelected(null);
   };
 

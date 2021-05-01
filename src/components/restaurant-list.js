@@ -25,7 +25,11 @@ function RestaurantList({
       <form>
         <label>
           {t("restaurantList.selectLabelMin")}
-          <Select value={minRating} onChange={handleMinRating}>
+          <Select
+            style={{ width: 120 }}
+            value={minRating}
+            onChange={(value) => handleMinRating(value)}
+          >
             <Option value="0">0</Option>
             <Option value="1">1</Option>
             <Option value="2">2</Option>
@@ -38,7 +42,11 @@ function RestaurantList({
         <div>
           <label>
             {t("restaurantList.selectLabelMax")}
-            <Select value={maxRating} onChange={handleMaxRating}>
+            <Select
+              style={{ width: 120 }}
+              value={maxRating}
+              onChange={(value) => handleMaxRating(value)}
+            >
               <Option value="0">0</Option>
               <Option value="1">1</Option>
               <Option value="2">2</Option>
