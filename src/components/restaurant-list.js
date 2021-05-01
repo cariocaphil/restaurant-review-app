@@ -58,7 +58,7 @@ function RestaurantList({
           </Form.Item>
         </Input.Group>
       </Form>
-      <h2>{t("restaurantList.headline")}</h2>
+      <h2 style={{ margin: 10 }}>{t("restaurantList.headline")}</h2>
       <ul>
         {data.map((restaurant, index) => (
           <RestaurantItem
