@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RestaurantList from "./components/restaurant-list";
 import Map from "./components/map";
-import { data } from "./data/restaurants";
+import data from "./data/restaurants";
 import { getAverageRating } from "./utils/helper-functions";
 import "./App.css";
 
@@ -26,7 +26,6 @@ function App() {
   };
 
   const handleClose = () => {
-    debugger;
     setSelected(null);
   };
 

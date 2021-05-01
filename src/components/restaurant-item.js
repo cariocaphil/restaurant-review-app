@@ -37,7 +37,7 @@ function RestaurantItem({
               <List
                 dataSource={restaurant.ratings}
                 renderItem={(item) => (
-                  <List.Item>
+                  <List.Item key={item.id}>
                     {item.stars}{" "}
                     <Typography.Text mark>{item.comment}</Typography.Text>
                   </List.Item>

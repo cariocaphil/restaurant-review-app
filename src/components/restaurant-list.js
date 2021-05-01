@@ -62,6 +62,7 @@ function RestaurantList({
       <ul>
         {data.map((restaurant, index) => (
           <RestaurantItem
+            key={restaurant.id}
             selected={selected === index}
             restaurant={restaurant}
             isOpen={isOpen}

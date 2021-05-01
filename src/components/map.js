@@ -103,8 +103,9 @@ function MapComponent({ data, handleBounds }) {
           className: "labels",
         }}
       />
-      {data.map((restaurant, index) => (
+      {data.map((restaurant) => (
         <Marker
+          key={restaurant.id}
           position={{
             lat: restaurant.lat,
             lng: restaurant.long,
