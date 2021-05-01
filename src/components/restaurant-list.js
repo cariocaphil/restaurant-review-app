@@ -6,6 +6,8 @@ import { getAverageRating } from "../utils/helper-functions";
 import { Select } from "antd";
 const { Option } = Select;
 
+import "./restaurant-list.css";
+
 function RestaurantList({
   data,
   minRating,
