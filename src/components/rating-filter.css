@@ -1,0 +1,5 @@
+@media (max-width: 575px) {
+  .ant-form-item .ant-form-item-label > label {
+    margin: 0 7px 0 0 !important;
+  }
+}
