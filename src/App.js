@@ -23,7 +23,7 @@ function App() {
     setCurrentBounds(bounds);
   };
 
-  let filteredData = data.filter((restaurant) => {
+  const filteredData = data.filter((restaurant) => {
     const averageRating = getAverageRating(restaurant.ratings);
     return averageRating >= minRating && averageRating <= maxRating;
   });

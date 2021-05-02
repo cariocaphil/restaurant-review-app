@@ -14,7 +14,7 @@ function RestaurantItem({ restaurant, isInCurrentMapRange, averageRating }) {
         <Card key={restaurant.id}>
           <h2>{restaurant.restaurantName}</h2>
           <h3>{restaurant.address}</h3>
-          <br></br>
+          <br />
           <Collapse accordion>
             <Panel
               header={`${t("restaurantItem.ratingLabel")}: ${averageRating}`}

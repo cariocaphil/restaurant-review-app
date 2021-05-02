@@ -1,9 +1,8 @@
 import React from "react";
-import RestaurantItem from "./restaurant-item";
 import { useTranslation } from "react-i18next";
-import { getAverageRating } from "../utils/helper-functions";
 import { Select, Form, Input } from "antd";
-const { Option } = Select;
+import RestaurantItem from "./restaurant-item";
+import { getAverageRating } from "../utils/helper-functions";
 
 import "./restaurant-list.css";
 
@@ -16,6 +15,7 @@ function RestaurantList({
   currentBounds,
 }) {
   const { t } = useTranslation();
+  const { Option } = Select;
 
   return (
     <>
