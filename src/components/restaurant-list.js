@@ -19,13 +19,20 @@ function RestaurantList({
 
   return (
     <>
-      <Form layout="inline" style={{ margin: 10 }}>
+      <h2 style={{ marginLeft: 24, marginTop: 10 }}>
+        {t("restaurantList.headline")}
+      </h2>
+      <Form
+        layout="inline"
+        style={{ marginLeft: 24, marginTop: 10, marginBottom: 10 }}
+      >
         <Input.Group compact>
           <Form.Item label={t("restaurantList.selectLabelMin")}>
             <Select
-              style={{ width: 55 }}
+              style={{ width: 50 }}
               value={minRating}
               onChange={(value) => handleMinRating(value)}
+              size="small"
             >
               <Option value="0">0</Option>
               <Option value="1">1</Option>
@@ -40,9 +47,10 @@ function RestaurantList({
             style={{ marginLeft: "10px" }}
           >
             <Select
-              style={{ width: 55 }}
+              style={{ width: 50 }}
               value={maxRating}
               onChange={(value) => handleMaxRating(value)}
+              size="small"
             >
               <Option value="0">0</Option>
               <Option value="1">1</Option>
@@ -54,7 +62,6 @@ function RestaurantList({
           </Form.Item>
         </Input.Group>
       </Form>
-      <h2 style={{ margin: 10 }}>{t("restaurantList.headline")}</h2>
       <ul>
         {data.map((restaurant) => (
           <RestaurantItem
