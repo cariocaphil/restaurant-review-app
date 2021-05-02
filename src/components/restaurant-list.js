@@ -14,10 +14,6 @@ function RestaurantList({
   handleMaxRating,
   handleMinRating,
   currentBounds,
-  isOpen,
-  selected,
-  handleDetailsView,
-  handleClose,
 }) {
   const { t } = useTranslation();
 
@@ -60,15 +56,10 @@ function RestaurantList({
       </Form>
       <h2 style={{ margin: 10 }}>{t("restaurantList.headline")}</h2>
       <ul>
-        {data.map((restaurant, index) => (
+        {data.map((restaurant) => (
           <RestaurantItem
             key={restaurant.id}
-            selected={selected === index}
             restaurant={restaurant}
-            isOpen={isOpen}
-            index={index}
-            handleDetailsView={() => handleDetailsView(index)}
-            handleClose={() => handleClose()}
             currentBounds={currentBounds}
             isInCurrentMapRange={
               currentBounds &&

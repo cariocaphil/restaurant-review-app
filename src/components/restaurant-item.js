@@ -1,39 +1,25 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button, Card, List, Typography } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import { Card, List, Typography, Collapse } from "antd";
 
-function RestaurantItem({
-  selected,
-  restaurant,
-  handleClose,
-  index,
-  handleDetailsView,
-  isInCurrentMapRange,
-  averageRating,
-}) {
+const { Panel } = Collapse;
+
+function RestaurantItem({ restaurant, isInCurrentMapRange, averageRating }) {
   const { t } = useTranslation();
 
   return (
     <>
       {isInCurrentMapRange ? (
-        <Card key={restaurant.id} onClick={() => handleDetailsView(index)}>
-          {selected ? (
-            <Button
-              type="secondary"
-              icon={<CloseOutlined />}
-              onClick={() => handleClose()}
-              style={{ float: "right" }}
-            />
-          ) : null}
+        <Card key={restaurant.id}>
           <h2>{restaurant.restaurantName}</h2>
           <h3>{restaurant.address}</h3>
-          <h3>
-            {t("restaurantItem.ratingLabel")}: {averageRating}
-          </h3>
-          {selected ? (
-            <>
+          <br></br>
+          <Collapse accordion>
+            <Panel
+              header={`${t("restaurantItem.ratingLabel")}: ${averageRating}`}
+              key={restaurant.id}
+            >
               <List
                 dataSource={restaurant.ratings}
                 renderItem={(item) => (
@@ -43,8 +29,8 @@ function RestaurantItem({
                   </List.Item>
                 )}
               />
-            </>
-          ) : null}
+            </Panel>
+          </Collapse>
         </Card>
       ) : null}
     </>

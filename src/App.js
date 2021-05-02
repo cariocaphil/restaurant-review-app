@@ -9,7 +9,6 @@ function App() {
   const [currentBounds, setCurrentBounds] = useState(null); // map bounds state
   const [minRating, setMinRating] = useState(1);
   const [maxRating, setMaxRating] = useState(5);
-  const [selected, setSelected] = useState(null);
 
   // handlers for rating form filter
   const handleMinRating = (value) => {
@@ -18,15 +17,6 @@ function App() {
 
   const handleMaxRating = (value) => {
     setMaxRating(value);
-  };
-
-  // handlers for restaurant list
-  const handleDetailsView = (index) => {
-    setSelected(index);
-  };
-
-  const handleClose = () => {
-    setSelected(null);
   };
 
   const handleBounds = (bounds) => {
@@ -50,9 +40,6 @@ function App() {
             handleMinRating={handleMinRating}
             currentBounds={currentBounds}
             handleBounds={handleBounds}
-            selected={selected}
-            handleDetailsView={handleDetailsView}
-            handleClose={handleClose}
           />
         </div>
         <div className="map-section">
