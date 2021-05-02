@@ -1,10 +1,10 @@
 import React from "react";
-import RestaurantItem from "./restaurant-item";
 import { useTranslation } from "react-i18next";
+import RatingFilter from "./rating-filter";
+import RestaurantItem from "./restaurant-item";
 import { getAverageRating } from "../utils/helper-functions";
 
-import { Select } from "antd";
-const { Option } = Select;
+import "./restaurant-list.css";
 
 function RestaurantList({
   data,
@@ -13,52 +13,25 @@ function RestaurantList({
   handleMaxRating,
   handleMinRating,
   currentBounds,
-  isOpen,
-  selected,
-  handleDetailsView,
-  handleClose,
 }) {
   const { t } = useTranslation();
 
   return (
     <>
-      <form>
-        <label>
-          {t("restaurantList.selectLabelMin")}
-          <Select value={minRating} onChange={handleMinRating}>
-            <Option value="0">0</Option>
-            <Option value="1">1</Option>
-            <Option value="2">2</Option>
-            <Option value="3">3</Option>
-            <Option value="4">4</Option>
-            <Option value="5">5</Option>
-          </Select>
-        </label>
-
-        <div>
-          <label>
-            {t("restaurantList.selectLabelMax")}
-            <Select value={maxRating} onChange={handleMaxRating}>
-              <Option value="0">0</Option>
-              <Option value="1">1</Option>
-              <Option value="2">2</Option>
-              <Option value="3">3</Option>
-              <Option value="4">4</Option>
-              <Option value="5">5</Option>
-            </Select>
-          </label>
-        </div>
-      </form>
-      <h2>{t("restaurantList.headline")}</h2>
+      <h2 style={{ marginLeft: 24, marginTop: 10 }}>
+        {t("restaurantList.headline")}
+      </h2>
+      <RatingFilter
+        minRating={minRating}
+        maxRating={maxRating}
+        handleMinRating={handleMinRating}
+        handleMaxRating={handleMaxRating}
+      />
       <ul>
-        {data.map((restaurant, index) => (
+        {data.map((restaurant) => (
           <RestaurantItem
-            selected={selected === index}
+            key={restaurant.id}
             restaurant={restaurant}
-            isOpen={isOpen}
-            index={index}
-            handleDetailsView={() => handleDetailsView(index)}
-            handleClose={() => handleClose()}
             currentBounds={currentBounds}
             isInCurrentMapRange={
               currentBounds &&

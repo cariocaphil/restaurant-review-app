@@ -7,8 +7,9 @@ const resources = {
     translation: {
       "map.userLocationMarker.label": "You are here",
       "restaurantList.headline": "Restaurants in this area",
-      "restaurantList.selectLabelMin": "Rating from",
+      "restaurantList.selectLabelMin": "From",
       "restaurantList.selectLabelMax": "to",
+      "restaurantItem.ratingLabel": "average rating",
     },
   },
   fr: {

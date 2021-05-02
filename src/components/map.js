@@ -5,10 +5,10 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import { API_KEY } from "../utils/constants";
 import "./map.css";
 import ReactStreetview from "react-streetview";
 import { useTranslation } from "react-i18next";
+import { API_KEY } from "../utils/constants";
 
 const containerStyle = {
   width: "100%",
@@ -44,8 +44,8 @@ function MapComponent({ data, handleBounds }) {
 
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition(async (position) => {
-      let lat = await position.coords.latitude;
-      let lng = await position.coords.longitude;
+      const lat = await position.coords.latitude;
+      const lng = await position.coords.longitude;
       setLocation({
         ...location,
         lat,
@@ -103,8 +103,9 @@ function MapComponent({ data, handleBounds }) {
           className: "labels",
         }}
       />
-      {data.map((restaurant, index) => (
+      {data.map((restaurant) => (
         <Marker
+          key={restaurant.id}
           position={{
             lat: restaurant.lat,
             lng: restaurant.long,
