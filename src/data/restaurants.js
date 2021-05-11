@@ -1,4 +1,4 @@
-const data = [
+const initialData = [
   {
     id: 1,
     restaurantName: "Bronco",
@@ -33,4 +33,4 @@ const data = [
   },
 ];
 
-export default data;
+export default initialData;

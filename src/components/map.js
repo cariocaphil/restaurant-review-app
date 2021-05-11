@@ -9,6 +9,7 @@ import "./map.css";
 import ReactStreetview from "react-streetview";
 import { useTranslation } from "react-i18next";
 import { API_KEY } from "../utils/constants";
+import AddRestaurantForm from "./add-restaurant-form";
 
 const containerStyle = {
   width: "100%",
@@ -20,7 +21,16 @@ const center = {
   lng: -38.523,
 };
 
-function MapComponent({ data, handleBounds }) {
+function MapComponent({
+  data,
+  handleBounds,
+  handleClick,
+  displayAddRestaurantForm,
+  handleInputChange,
+  handleSubmit,
+  newRestaurantLocation,
+  handleMapRestaurantFormClose,
+}) {
   const { t } = useTranslation();
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
@@ -93,6 +103,7 @@ function MapComponent({ data, handleBounds }) {
       onUnmount={onUnmount}
       onCenterChanged={() => handleBounds(map && map.getBounds())}
       onZoomChanged={() => handleBounds(map && map.getBounds())}
+      onDblClick={(event) => handleClick(event)}
     >
       {/* Child components, such as markers, info windows, etc. */}
       <Marker
@@ -165,6 +176,18 @@ function MapComponent({ data, handleBounds }) {
               />
             </div>
           </div>
+        </InfoWindow>
+      )}
+      {displayAddRestaurantForm && newRestaurantLocation && (
+        <InfoWindow
+          position={newRestaurantLocation}
+          onCloseClick={() => handleMapRestaurantFormClose()}
+        >
+          <AddRestaurantForm
+            handleInputChange={handleInputChange}
+            handleSubmit={handleSubmit}
+            showOnlyReviewSection={false}
+          />
         </InfoWindow>
       )}
     </GoogleMap>

@@ -2,10 +2,17 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Card, List, Typography, Collapse } from "antd";
+import AddRestaurantForm from "./add-restaurant-form";
 
 const { Panel } = Collapse;
 
-function RestaurantItem({ restaurant, isInCurrentMapRange, averageRating }) {
+function RestaurantItem({
+  restaurant,
+  isInCurrentMapRange,
+  averageRating,
+  handleInputChange,
+  handleSubmit,
+}) {
   const { t } = useTranslation();
 
   return (
@@ -28,6 +35,12 @@ function RestaurantItem({ restaurant, isInCurrentMapRange, averageRating }) {
                     <Typography.Text mark>{item.comment}</Typography.Text>
                   </List.Item>
                 )}
+              />
+              <AddRestaurantForm
+                handleInputChange={handleInputChange}
+                handleSubmit={handleSubmit}
+                showOnlyReviewSection
+                restaurant={restaurant}
               />
             </Panel>
           </Collapse>
