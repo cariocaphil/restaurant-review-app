@@ -13,6 +13,9 @@ function RestaurantList({
   handleMaxRating,
   handleMinRating,
   currentBounds,
+  handleSubmit,
+  handleInputChange,
+  inputs,
 }) {
   const { t } = useTranslation();
 
@@ -28,21 +31,25 @@ function RestaurantList({
         handleMaxRating={handleMaxRating}
       />
       <ul>
-        {data.map((restaurant) => (
-          <RestaurantItem
-            key={restaurant.id}
-            restaurant={restaurant}
-            currentBounds={currentBounds}
-            isInCurrentMapRange={
-              currentBounds &&
-              currentBounds.contains({
-                lat: restaurant.lat,
-                lng: restaurant.long,
-              })
-            }
-            averageRating={getAverageRating(restaurant.ratings)}
-          />
-        ))}
+        {data &&
+          data.map((restaurant) => (
+            <RestaurantItem
+              key={restaurant.id}
+              restaurant={restaurant}
+              currentBounds={currentBounds}
+              isInCurrentMapRange={
+                currentBounds &&
+                currentBounds.contains({
+                  lat: restaurant.lat,
+                  lng: restaurant.long,
+                })
+              }
+              averageRating={getAverageRating(restaurant.ratings)}
+              handleInputChange={handleInputChange}
+              inputs={inputs}
+              handleSubmit={handleSubmit}
+            />
+          ))}
       </ul>
     </>
   );

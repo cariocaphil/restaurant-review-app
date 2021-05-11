@@ -10,6 +10,11 @@ const resources = {
       "restaurantList.selectLabelMin": "From",
       "restaurantList.selectLabelMax": "to",
       "restaurantItem.ratingLabel": "average rating",
+      "addRestaurantForm.nameLabel": "Retaurant name: ",
+      "addRestaurantForm.addressLabel": "Address: ",
+      "addRestaurantForm.selectDefault": "Choose a rating",
+      "addRestaurantForm.textDefault": "Please write your feedback",
+      "addRestaurantForm.submit": "Submit your review",
     },
   },
   fr: {
