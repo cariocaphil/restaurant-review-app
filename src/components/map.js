@@ -30,21 +30,28 @@ function MapComponent({
   handleSubmit,
   newRestaurantLocation,
   handleMapRestaurantFormClose,
+  setData,
 }) {
   const { t } = useTranslation();
+  let service;
+  const libraries = ["places"];
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: API_KEY,
+    libraries,
   });
 
   const [map, setMap] = React.useState(null);
   const [infoOpen, setInfoOpen] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [markerMap, setMarkerMap] = useState({});
+  const [location, setLocation] = useState(null);
 
+  const mapRef = React.useRef();
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds();
     map.fitBounds(bounds);
+    mapRef.current = map;
     setMap(map);
   }, []);
 
@@ -64,11 +71,56 @@ function MapComponent({
     });
   };
 
+  // Google Place Api with nearbySearch
+  const fetchGooglePlaces = () => {
+    try {
+      const service = new window.google.maps.places.PlacesService(
+        mapRef.current
+      );
+      const currentLocation = new window.google.maps.LatLng(
+        location.lat,
+        location.lng
+      );
+      var request = {
+        location: currentLocation,
+        radius: "20000", // unit is meters
+        type: ["restaurant"],
+      };
+      service.nearbySearch(request, callback);
+      function callback(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          for (let i = 0; i < results.length; i++) {
+            let place = results[i];
+            // new google.maps.Marker({
+            //   position: place.geometry.location,
+            //   map
+            // });
+            const restaurantPlace = {
+              id: place.id,
+              restaurantName: place.name,
+              address: place.vicinity,
+              lat: place.geometry.location && place.geometry.location.lat(),
+              long: place.geometry.location && place.geometry.location.lng(),
+              ratings: [{ stars: place.rating }],
+            };
+            const placesData = data;
+            placesData.push(restaurantPlace);
+            setData(placesData);
+          }
+        }
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   useEffect(() => {
     getLocation();
   }, []);
 
-  const [location, setLocation] = useState(null);
+  useEffect(() => {
+    fetchGooglePlaces();
+  }, [location]);
 
   // https://codesandbox.io/s/react-google-maps-api-tl0sk
   const markerClickHandler = (event, place) => {

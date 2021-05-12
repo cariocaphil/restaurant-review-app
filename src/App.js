@@ -152,6 +152,7 @@ function App() {
             inputs={inputs}
             handleSubmit={handleMapSubmit}
             currentBounds={currentBounds}
+            setData={setData}
           />
         </div>
       </div>
