@@ -31,6 +31,7 @@ function MapComponent({
   newRestaurantLocation,
   handleMapRestaurantFormClose,
   setData,
+  setGooglePlacesData,
 }) {
   const { t } = useTranslation();
   let service;
@@ -91,10 +92,6 @@ function MapComponent({
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (let i = 0; i < results.length; i++) {
             let place = results[i];
-            // new google.maps.Marker({
-            //   position: place.geometry.location,
-            //   map
-            // });
             const restaurantPlace = {
               id: place.id,
               restaurantName: place.name,
@@ -105,7 +102,9 @@ function MapComponent({
             };
             const placesData = data;
             placesData.push(restaurantPlace);
+
             setData(placesData);
+            setGooglePlacesData(placesData);
           }
         }
       }

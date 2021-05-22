@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { Switch } from "antd";
 import RatingFilter from "./rating-filter";
 import RestaurantItem from "./restaurant-item";
 import { getAverageRating } from "../utils/helper-functions";
@@ -16,14 +17,21 @@ function RestaurantList({
   handleSubmit,
   handleInputChange,
   inputs,
+  toggleData,
 }) {
   const { t } = useTranslation();
 
   return (
     <>
-      <h2 style={{ marginLeft: 24, marginTop: 10 }}>
-        {t("restaurantList.headline")}
-      </h2>
+      <div className="gutter">
+        <h2 style={{ marginTop: 10 }}>{t("restaurantList.headline")}</h2>
+        <label style={{ display: "block" }} for="GooglePlacesSwitch">
+          Show GooglePlaces Data
+        </label>
+        <Switch defaultChecked onChange={toggleData} id="GooglePlacesSwitch">
+          Toggle
+        </Switch>
+      </div>
       <RatingFilter
         minRating={minRating}
         maxRating={maxRating}
