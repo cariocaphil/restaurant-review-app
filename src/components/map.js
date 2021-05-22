@@ -34,7 +34,6 @@ function MapComponent({
   setGooglePlacesData,
 }) {
   const { t } = useTranslation();
-  let service;
   const libraries = ["places"];
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
@@ -82,16 +81,15 @@ function MapComponent({
         location.lat,
         location.lng
       );
-      var request = {
+      const request = {
         location: currentLocation,
         radius: "20000", // unit is meters
         type: ["restaurant"],
       };
-      service.nearbySearch(request, callback);
-      function callback(results, status) {
+      const callback = (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (let i = 0; i < results.length; i++) {
-            let place = results[i];
+          for (let i = 0; i < results.length; i += 1) {
+            const place = results[i];
             const restaurantPlace = {
               id: place.id,
               restaurantName: place.name,
@@ -107,7 +105,8 @@ function MapComponent({
             setGooglePlacesData(placesData);
           }
         }
-      }
+      };
+      service.nearbySearch(request, callback);
     } catch (err) {
       console.log(err.message);
     }
@@ -123,7 +122,6 @@ function MapComponent({
 
   // https://codesandbox.io/s/react-google-maps-api-tl0sk
   const markerClickHandler = (event, place) => {
-    console.log(event);
     setSelectedPlace(place);
 
     // Required so clicking a 2nd marker works as expected

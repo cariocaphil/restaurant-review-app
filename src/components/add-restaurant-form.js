@@ -40,7 +40,7 @@ function AddRestaurantForm({
           <select
             name="stars"
             value={inputs && inputs.stars}
-            onChange={(e) => handleInputChange(e)}
+            onBlur={(e) => handleInputChange(e)}
             defaultValue=""
           >
             <option disabled value="">

@@ -125,7 +125,7 @@ function App() {
 
   useEffect(() => {
     showGooglePlaces ? setData(googlePlacesData) : setData(initialData);
-  }, [showGooglePlaces]);
+  }, [showGooglePlaces, googlePlacesData]);
 
   const filteredData = data.filter((restaurant) => {
     const averageRating = getAverageRating(restaurant.ratings);

@@ -25,7 +25,7 @@ function RestaurantList({
     <>
       <div className="gutter">
         <h2 style={{ marginTop: 10 }}>{t("restaurantList.headline")}</h2>
-        <label style={{ display: "block" }} for="GooglePlacesSwitch">
+        <label style={{ display: "block" }} htmlFor="GooglePlacesSwitch">
           Show GooglePlaces Data
         </label>
         <Switch defaultChecked onChange={toggleData} id="GooglePlacesSwitch">
