@@ -12,10 +12,16 @@
   height: 100vh;
 }
 
+.restaurant-section {
+  height: 100vh;
+  overflow-y: scroll;
+}
+
 @media (max-width: 767px) {
   .flex-container {
     flex-direction: column-reverse;
   }
+
   .restaurant-section {
     height: 40vh;
     overflow-y: scroll;

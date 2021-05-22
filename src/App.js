@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RestaurantList from "./components/restaurant-list";
 import Map from "./components/map";
 import initialData from "./data/restaurants";
@@ -11,6 +11,8 @@ function App() {
   const [minRating, setMinRating] = useState(1);
   const [maxRating, setMaxRating] = useState(5);
   const [data, setData] = useState(initialData);
+  const [googlePlacesData, setGooglePlacesData] = useState([]);
+  const [showGooglePlaces, setShowGooglePlaces] = useState(true);
   const [inputs, setInputs] = useState(initialState);
   const [displayAddRestaurantForm, setDisplayAddRestaurantForm] = useState(
     null
@@ -117,6 +119,14 @@ function App() {
     setCurrentBounds(bounds);
   };
 
+  const toggleData = () => {
+    setShowGooglePlaces((prevState) => !prevState);
+  };
+
+  useEffect(() => {
+    showGooglePlaces ? setData(googlePlacesData) : setData(initialData);
+  }, [showGooglePlaces, googlePlacesData]);
+
   const filteredData = data.filter((restaurant) => {
     const averageRating = getAverageRating(restaurant.ratings);
     return averageRating >= minRating && averageRating <= maxRating;
@@ -138,6 +148,7 @@ function App() {
             inputs={inputs}
             handleSubmit={handleSubmit}
             newRestaurantLocation={newRestaurantLocation}
+            toggleData={toggleData}
           />
         </div>
         <div className="map-section">
@@ -152,6 +163,10 @@ function App() {
             inputs={inputs}
             handleSubmit={handleMapSubmit}
             currentBounds={currentBounds}
+            setData={setData}
+            showGooglePlaces={showGooglePlaces}
+            googlePlacesData={googlePlacesData}
+            setGooglePlacesData={setGooglePlacesData}
           />
         </div>
       </div>
