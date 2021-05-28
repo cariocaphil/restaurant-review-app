@@ -18,6 +18,8 @@ function RestaurantList({
   handleInputChange,
   inputs,
   toggleData,
+  errors,
+  buttonEnabled,
 }) {
   const { t } = useTranslation();
 
@@ -56,6 +58,8 @@ function RestaurantList({
               handleInputChange={handleInputChange}
               inputs={inputs}
               handleSubmit={handleSubmit}
+              errors={errors}
+              buttonEnabled={buttonEnabled}
             />
           ))}
       </ul>

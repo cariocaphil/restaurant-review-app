@@ -5,6 +5,7 @@ import initialData from "./data/restaurants";
 import { getAverageRating } from "./utils/helper-functions";
 import "./App.css";
 import { initialState } from "./utils/constants";
+import { validate } from "./validate";
 
 function App() {
   const [currentBounds, setCurrentBounds] = useState(null); // map bounds state
@@ -14,6 +15,12 @@ function App() {
   const [googlePlacesData, setGooglePlacesData] = useState([]);
   const [showGooglePlaces, setShowGooglePlaces] = useState(true);
   const [inputs, setInputs] = useState(initialState);
+  const [errors, setErrors] = useState({
+    name: "",
+    address: "",
+    stars: "",
+    comment: "",
+  });
   const [displayAddRestaurantForm, setDisplayAddRestaurantForm] = useState(
     null
   );
@@ -62,11 +69,18 @@ function App() {
     });
   };
 
+  const noErrors = Object.values(errors).every((e) => e === "");
+  const noEmptyInputs = displayAddRestaurantForm
+    ? Object.values(inputs).every((e) => e !== "")
+    : inputs.stars !== "" && inputs.comment !== "";
+  const buttonEnabled = noErrors && noEmptyInputs;
+
   const handleInputChange = (event) => {
     setInputs((inputs) => ({
       ...inputs,
       [event.target.name]: event.target.value,
     }));
+    setErrors(validate(inputs));
   };
 
   // handlers for restaurant addition in map
@@ -113,6 +127,12 @@ function App() {
 
   const handleMapRestaurantFormClose = () => {
     setDisplayAddRestaurantForm(false);
+    setInputs({
+      name: "",
+      address: "",
+      stars: "",
+      comment: "",
+    });
   };
 
   const handleBounds = (bounds) => {
@@ -149,6 +169,8 @@ function App() {
             handleSubmit={handleSubmit}
             newRestaurantLocation={newRestaurantLocation}
             toggleData={toggleData}
+            errors={errors}
+            buttonEnabled={buttonEnabled}
           />
         </div>
         <div className="map-section">
@@ -167,6 +189,8 @@ function App() {
             showGooglePlaces={showGooglePlaces}
             googlePlacesData={googlePlacesData}
             setGooglePlacesData={setGooglePlacesData}
+            errors={errors}
+            buttonEnabled={buttonEnabled}
           />
         </div>
       </div>

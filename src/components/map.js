@@ -32,6 +32,8 @@ function MapComponent({
   handleMapRestaurantFormClose,
   setData,
   setGooglePlacesData,
+  errors,
+  buttonEnabled,
 }) {
   const { t } = useTranslation();
   const libraries = ["places"];
@@ -85,6 +87,7 @@ function MapComponent({
         location: currentLocation,
         radius: "20000", // unit is meters
         type: ["restaurant"],
+        keyword: ["restaurant"],
       };
       const callback = (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -236,6 +239,8 @@ function MapComponent({
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
             showOnlyReviewSection={false}
+            errors={errors}
+            buttonEnabled={buttonEnabled}
           />
         </InfoWindow>
       )}
