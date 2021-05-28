@@ -12,6 +12,8 @@ function RestaurantItem({
   averageRating,
   handleInputChange,
   handleSubmit,
+  errors,
+  buttonEnabled,
 }) {
   const { t } = useTranslation();
 
@@ -41,6 +43,8 @@ function RestaurantItem({
                 handleSubmit={handleSubmit}
                 showOnlyReviewSection
                 restaurant={restaurant}
+                errors={errors}
+                buttonEnabled={buttonEnabled}
               />
             </Panel>
           </Collapse>

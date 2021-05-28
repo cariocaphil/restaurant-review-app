@@ -1,5 +1,7 @@
 import React from "react";
 import "./add-restaurant-form.css";
+import { Typography } from "antd";
+
 import { useTranslation } from "react-i18next";
 
 function AddRestaurantForm({
@@ -8,6 +10,8 @@ function AddRestaurantForm({
   inputs,
   showOnlyReviewSection,
   restaurant,
+  errors,
+  buttonEnabled,
 }) {
   const { t } = useTranslation();
 
@@ -26,6 +30,9 @@ function AddRestaurantForm({
                 value={inputs && inputs.name}
                 onChange={(e) => handleInputChange(e)}
               />
+              {errors && errors.name && (
+                <Typography.Paragraph>{errors.name}</Typography.Paragraph>
+              )}
               <label htmlFor="address">
                 {t("addRestaurantForm.addressLabel")}
               </label>
@@ -35,6 +42,9 @@ function AddRestaurantForm({
                 value={inputs && inputs.address}
                 onChange={(e) => handleInputChange(e)}
               />
+              {errors && errors.address && (
+                <Typography.Paragraph>{errors.address}</Typography.Paragraph>
+              )}
             </>
           )}
           <select
@@ -60,7 +70,15 @@ function AddRestaurantForm({
             placeholder={t("addRestaurantForm.textDefault")}
             onChange={(e) => handleInputChange(e)}
           />
-          <input type="submit" value={t("addRestaurantForm.submit")} />
+          {errors && errors.comment && (
+            <Typography.Paragraph>{errors.comment}</Typography.Paragraph>
+          )}
+
+          <input
+            disabled={!buttonEnabled}
+            type="submit"
+            value={t("addRestaurantForm.submit")}
+          />
         </div>
       </form>
     </>
