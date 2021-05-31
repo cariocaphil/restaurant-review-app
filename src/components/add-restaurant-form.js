@@ -31,7 +31,9 @@ function AddRestaurantForm({
                 onChange={(e) => handleInputChange(e)}
               />
               {errors && errors.name && (
-                <Typography.Paragraph>{errors.name}</Typography.Paragraph>
+                <Typography.Paragraph style={{ color: "red" }}>
+                  {errors.name}
+                </Typography.Paragraph>
               )}
               <label htmlFor="address">
                 {t("addRestaurantForm.addressLabel")}
@@ -43,7 +45,9 @@ function AddRestaurantForm({
                 onChange={(e) => handleInputChange(e)}
               />
               {errors && errors.address && (
-                <Typography.Paragraph>{errors.address}</Typography.Paragraph>
+                <Typography.Paragraph style={{ color: "red" }}>
+                  {errors.address}
+                </Typography.Paragraph>
               )}
             </>
           )}
@@ -71,7 +75,9 @@ function AddRestaurantForm({
             onChange={(e) => handleInputChange(e)}
           />
           {errors && errors.comment && (
-            <Typography.Paragraph>{errors.comment}</Typography.Paragraph>
+            <Typography.Paragraph style={{ color: "red" }}>
+              {errors.comment}
+            </Typography.Paragraph>
           )}
 
           <input

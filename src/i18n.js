@@ -15,6 +15,12 @@ const resources = {
       "addRestaurantForm.selectDefault": "Choose a rating",
       "addRestaurantForm.textDefault": "Please write your feedback",
       "addRestaurantForm.submit": "Submit your review",
+      "errorMessage.lengthName":
+        "Name input should not be longer than 20 characters",
+      "errorMessage.lengthAddress":
+        "Address input should not be longer than 30 characters",
+      "errorMessage.lengthComment":
+        "Comment input should not be longer than 50 characters",
     },
   },
   fr: {
