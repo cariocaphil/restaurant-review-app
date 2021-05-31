@@ -139,7 +139,7 @@ function MapComponent({
           for (let i = 0; i < results.length; i += 1) {
             const place = results[i];
             const restaurantPlace = {
-              id: place.id,
+              id: place.place_id,
               restaurantName: place.name,
               address: place.vicinity,
               lat: place.geometry.location && place.geometry.location.lat(),
