@@ -6,6 +6,7 @@ const resources = {
   en: {
     translation: {
       "map.userLocationMarker.label": "You are here",
+      "map.warning": "Please check your geolocation settings.",
       "restaurantList.headline": "Restaurants in this area",
       "restaurantList.selectLabelMin": "From",
       "restaurantList.selectLabelMax": "to",

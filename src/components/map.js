@@ -5,6 +5,8 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
+import { Alert } from "antd";
+
 import "./map.css";
 import ReactStreetview from "react-streetview";
 import { useTranslation } from "react-i18next";
@@ -21,6 +23,8 @@ const center = {
   lng: -38.523,
 };
 
+const libraries = ["places"];
+
 function MapComponent({
   data,
   handleBounds,
@@ -36,7 +40,6 @@ function MapComponent({
   buttonEnabled,
 }) {
   const { t } = useTranslation();
-  const libraries = ["places"];
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: API_KEY,
@@ -47,7 +50,8 @@ function MapComponent({
   const [infoOpen, setInfoOpen] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [markerMap, setMarkerMap] = useState({});
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState({});
+  const [status, setStatus] = useState("");
 
   const mapRef = React.useRef();
   const onLoad = React.useCallback(function callback(map) {
@@ -62,15 +66,56 @@ function MapComponent({
   }, []);
 
   const getLocation = () => {
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const lat = await position.coords.latitude;
-      const lng = await position.coords.longitude;
-      setLocation({
-        ...location,
-        lat,
-        lng,
-      });
-    });
+    // https://stackoverflow.com/questions/57130901/getcurrentposition-in-js-does-not-work-on-ios
+    // Set up getCurrentPosition options with a timeout
+    const navigatorLocationOptions = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+
+    // Determine browser permissions status
+    navigator.permissions.query({ name: "geolocation" }).then(
+      (result) => {
+        // result.state will be 'granted', 'denied', or 'error'
+        if (result.state === "granted") {
+          navigator.geolocation.getCurrentPosition(
+            async (position) => {
+              const lat = await position.coords.latitude;
+              const lng = await position.coords.longitude;
+              console.log("position", position);
+              setStatus(null);
+              setLocation({
+                ...location,
+                lat,
+                lng,
+              });
+            },
+            (error) => {
+              // System/OS location services disabled */
+              console.log("System/OS services disabled", navigator);
+              noLocationFound();
+            },
+            navigatorLocationOptions
+          );
+        } else {
+          // Browser location services disabled or error */
+          console.log("Browser location services disabled", navigator);
+          noLocationFound();
+        }
+      },
+      (error) => {
+        // Browser doesn't support querying for permissions */
+        console.log("Browser permissions services unavailable", navigator);
+        console.log("error", error);
+        noLocationFound();
+      }
+    );
+  };
+
+  /* Handle no location found */
+  const noLocationFound = () => {
+    setStatus("NO_GEOLOCATION");
   };
 
   // Google Place Api with nearbySearch
@@ -144,6 +189,10 @@ function MapComponent({
 
   if (loadError) {
     return <div>Map cannot be loaded right now, sorry.</div>;
+  }
+
+  if (status === "NO_GEOLOCATION") {
+    return <Alert message={t("map.warning")} type="error" />;
   }
 
   return isLoaded ? (
