@@ -75,42 +75,29 @@ function MapComponent({
     };
 
     // Determine browser permissions status
-    navigator.permissions.query({ name: "geolocation" }).then(
-      (result) => {
-        // result.state will be 'granted', 'denied', or 'error'
-        if (result.state === "granted") {
-          navigator.geolocation.getCurrentPosition(
-            async (position) => {
-              const lat = await position.coords.latitude;
-              const lng = await position.coords.longitude;
-              console.log("position", position);
-              setStatus(null);
-              setLocation({
-                ...location,
-                lat,
-                lng,
-              });
-            },
-            (error) => {
-              // System/OS location services disabled */
-              console.log("System/OS services disabled", navigator);
-              noLocationFound();
-            },
-            navigatorLocationOptions
-          );
-        } else {
-          // Browser location services disabled or error */
-          console.log("Browser location services disabled", navigator);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const lat = await position.coords.latitude;
+          const lng = await position.coords.longitude;
+          console.log("position", position);
+          setStatus(null);
+          setLocation({
+            ...location,
+            lat,
+            lng,
+          });
+        },
+        (error) => {
+          console.log(navigator);
           noLocationFound();
-        }
-      },
-      (error) => {
-        // Browser doesn't support querying for permissions */
-        console.log("Browser permissions services unavailable", navigator);
-        console.log("error", error);
-        noLocationFound();
-      }
-    );
+        },
+        navigatorLocationOptions
+      );
+    } else {
+      console.log("no navigator.geolocation", navigator);
+      noLocationFound();
+    }
   };
 
   /* Handle no location found */
