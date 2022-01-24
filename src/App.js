@@ -6,12 +6,12 @@ import { getAverageRating } from "./utils/helper-functions";
 import "./App.css";
 import { initialState } from "./utils/constants";
 import { validate } from "./validate";
+import { useData } from "./contexts/DataContext";
 
 function App() {
   const [currentBounds, setCurrentBounds] = useState(null); // map bounds state
   const [minRating, setMinRating] = useState(1);
   const [maxRating, setMaxRating] = useState(5);
-  const [data, setData] = useState(initialData);
   const [googlePlacesData, setGooglePlacesData] = useState([]);
   const [showGooglePlaces, setShowGooglePlaces] = useState(true);
   const [inputs, setInputs] = useState(initialState);
@@ -25,6 +25,8 @@ function App() {
     null
   );
   const [newRestaurantLocation, setNewRestaurantLocation] = useState(null);
+
+  const { data, setData } = useData();
 
   // handlers for rating form filter
   const handleMinRating = (value) => {
@@ -147,10 +149,12 @@ function App() {
     showGooglePlaces ? setData(googlePlacesData) : setData(initialData);
   }, [showGooglePlaces, googlePlacesData]);
 
-  const filteredData = data.filter((restaurant) => {
-    const averageRating = getAverageRating(restaurant.ratings);
-    return averageRating >= minRating && averageRating <= maxRating;
-  });
+  const filteredData =
+    data &&
+    data.filter((restaurant) => {
+      const averageRating = getAverageRating(restaurant.ratings);
+      return averageRating >= minRating && averageRating <= maxRating;
+    });
 
   return (
     <>
@@ -185,7 +189,6 @@ function App() {
             inputs={inputs}
             handleSubmit={handleMapSubmit}
             currentBounds={currentBounds}
-            setData={setData}
             showGooglePlaces={showGooglePlaces}
             googlePlacesData={googlePlacesData}
             setGooglePlacesData={setGooglePlacesData}
